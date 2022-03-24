@@ -15,6 +15,13 @@ public class NurikabeGame {
     }
 
     public static boolean squareExists(cell[][] board){
+        for(int r = 0; r < SIZE-1; r++) {
+            for (int c = 0; c < SIZE-1; c++) {
+                if(board[r][c].black && board[r][c+1].black && board[r+1][c].black && board[r+1][c+1].black){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -28,11 +35,7 @@ public class NurikabeGame {
 
     public static boolean gameSolved(cell[][] board){
 
-        if(squareExists(board)){
-            return false;
-        }else if(!blackConnected(board)){
-            return false;
-        }else if(!numbersSatisfied(board)){
+        if(squareExists(board) || !blackConnected(board) || !numbersSatisfied(board)){
             return false;
         }else{
             return true;
@@ -69,7 +72,7 @@ public class NurikabeGame {
         if(gameSolved){
             long endTime = System.nanoTime();
             long totalTime = endTime-startTime;
-            System.out.println("\n\nThe puzzle was solved in " + totalTime + " Milliseconds");
+            System.out.println("\n\nThe puzzle was solved in " + totalTime + " milliseconds");
         }
 
     }
